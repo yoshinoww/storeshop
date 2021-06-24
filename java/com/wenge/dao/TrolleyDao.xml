@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenge.dao.TrolleyDao">
+
+
+    <select id="getsByUsername" resultType="com.wenge.entity.Trolley">
+         select * from trolley where username=#{username}
+    </select>
+
+    <select id="get" resultType="com.wenge.entity.Trolley">
+         select * from trolley where id=#{id}
+    </select>
+
+    <insert id="insert">
+        insert into trolley(id,username,productid,count) values (#{id},#{username},#{productid},#{count})
+    </insert>
+
+    <update id="set">
+        update trolley
+        <set>
+            <if test="username!=null and username!='' ">
+                username =#{username},
+            </if>
+            <if test="productid!=null and productid!='' ">
+                productid =#{productid},
+            </if>
+            <if test="count!=null">
+                count =#{count},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="delete">
+        delete from trolley where  id=#{id}
+    </delete>
+    
+    <delete id="deleteByProductId">
+        delete from trolley where  productid=#{productid}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenge.dao.UserDao">
+
+    <select id="get" resultType="com.wenge.entity.User">
+        select * from user where  username=#{username}
+    </select>
+
+    <select id="getByEmail" resultType="com.wenge.entity.User">
+        select * from user where   email=#{email}
+    </select>
+
+    <select id="login" resultType="com.wenge.entity.User">
+        select * from user where  username=#{username} and password=#{password}
+    </select>
+
+    <insert id="insert">
+        insert into user
+           (username,
+            password,
+            email,
+            signature,
+            gender,
+            profilepath,
+            backgroundpath,
+            state)
+         values
+         (#{username},
+         #{password},
+         #{email},
+         #{signature},
+         #{gender},
+         #{profilepath},
+         #{backgroundpath},
+         #{state})
+    </insert>
+
+    <update id="set">
+        update  user
+        <set>
+            <if test="password!=null and password!='' ">
+                  password =#{password},
+            </if>
+            <if test="signature!=null and signature!=''">
+                 signature=#{signature},
+            </if>
+            <if test="gender!=null and gender!=''">
+                 gender=#{gender},
+            </if>
+            <if test="profilepath!=null and profilepath!=''">
+                profilepath=#{profilepath},
+            </if>
+            <if test="backgroundpath!=null and backgroundpath!=''">
+                 backgroundpath=#{backgroundpath},
+            </if>
+            <if test="state!=null">
+               state=#{state}
+            </if>
+        </set>
+            where  username=#{username}
+
+    </update>
+
+</mapper>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenge.dao.ProductDao">
+
+    <select id="get" resultType="com.wenge.entity.Product">
+        select * from product where id=#{id}
+    </select>
+    <select id="getProductsCount" resultType="Integer">
+        select count(id) from product where state='1'
+    </select>
+    <select id="getsByPage" resultType="com.wenge.entity.Product">
+        select * from product where state='1' limit #{page}, #{count}
+    </select>
+    <select id="gets" resultType="com.wenge.entity.Product">
+        select * from product
+    </select>
+    <select id="getsByType" resultType="com.wenge.entity.Product">
+        select * from product where type=#{type} and username=#{username} and state='1'
+    </select>
+    <select id="getsByTypeByPage" resultType="com.wenge.entity.Product">
+        select * from product where  state='1' and type=#{type} limit #{page},#{count}
+    </select>
+    <select id="getsByTypeCount" resultType="Integer">
+        select  count(id) from product where state='1' and type=#{type}
+    </select>
+    <select id="getsByUsername" resultType="com.wenge.entity.Product">
+        select * from product where username=#{username} and state='1'
+    </select>
+    <select id="getsByFuzzy" resultType="com.wenge.entity.Product">
+        select * from product where  username=#{username} and state='1' and (name like '%' #{text} '%'
+        or type like  '%' #{text} '%'  or
+        username like '%' #{text} '%')
+    </select>
+    <select id="getsByFuzzyByPage" resultType="com.wenge.entity.Product">
+        select * from product where state='1' and (name like '%' #{text} '%'
+        or type like  '%' #{text} '%'  or
+        username like '%' #{text} '%')
+        limit  #{page},#{count}
+    </select>
+    <select id="getsByFuzzyCount" resultType="Integer">
+         select count(id) from product where state='1' and (name like '%' #{text} '%'
+        or type like  '%' #{text} '%'  or
+        username like '%' #{text} '%')
+    </select>
+    <insert id="insert">
+        insert into product
+        (name,type,price,imagepath,username,id,discount,brief,state)
+         values (#{name},#{type},#{price},#{imagepath},#{username},#{id},#{discount},#{brief},#{state})
+    </insert>
+    <update id="set">
+        update product
+        <set>
+            <if test="name!=null and name!='' ">
+                name =#{name},
+            </if>
+            <if test="type!=null and type!='' ">
+                type =#{type},
+            </if>
+            <if test="price!=null">
+                price =#{price},
+            </if>
+            <if test="imagepath!=null and imagepath!='' ">
+                imagepath =#{imagepath},
+            </if>
+            <if test="discount!=null">
+                discount =#{discount},
+            </if>
+            <if test="brief!=null and brief!=''" >
+                brief =#{brief},
+            </if>
+            <if test="state!=null and state!=''" >
+                state =#{state}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="delete">
+       delete from product where  id=#{id}
+    </delete>
+
+</mapper>
