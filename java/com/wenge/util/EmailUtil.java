@@ -16,7 +16,7 @@ public class EmailUtil {
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("1850472872@qq.com","saorxktxebpwdcaj");
+                return new PasswordAuthentication("1850472872@qq.com","saorxktsdgsdfgsdgsdgsgsg23dcaj");
             }
         });
         //创建邮件对象
